@@ -2,11 +2,13 @@ package com.example.librarymanagement.controller;
 
 import com.example.librarymanagement.controller.model.Course;
 import com.example.librarymanagement.service.CourseService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class LibraryController {
 
     private final CourseService courseService;
@@ -15,33 +17,52 @@ public class LibraryController {
         this.courseService = courseService;
     }
 
+    // Home page
     @GetMapping("/")
-    public String home() {
-        return "Library Management System is Running";
+    public String home(Model model) {
+        List<Course> courses = courseService.getAllCourses();
+        model.addAttribute("courses", courses);
+        return "index";
     }
 
+    // Add course from browser form
+    @PostMapping("/courses/add")
+    public String addCourse(
+            @RequestParam Long id,
+            @RequestParam String name,
+            @RequestParam String instructor) {
+
+        Course course = new Course(id, name, instructor);
+        courseService.addCourse(course);
+
+        return "redirect:/";
+    }
+
+    // View all courses
     @GetMapping("/courses")
-    public List<Course> getAllCourses() {
-        return courseService.getAllCourses();
+    public String viewCourses(Model model) {
+        List<Course> courses = courseService.getAllCourses();
+        model.addAttribute("courses", courses);
+        return "courses";
     }
 
-    @PostMapping("/courses")
-    public Course addCourse(@RequestBody Course course) {
-        return courseService.addCourse(course);
-    }
-
-    @PutMapping("/courses/{id}")
-    public Course updateCourse(
-            @PathVariable Long id,
-            @RequestBody Course course) {
-        return courseService.updateCourse(id, course);
-    }
-
-    @DeleteMapping("/courses/{id}")
+    // Delete course
+    @GetMapping("/courses/delete/{id}")
     public String deleteCourse(@PathVariable Long id) {
-        if (courseService.deleteCourse(id)) {
-            return "Course deleted successfully";
-        }
-        return "Course not found";
+        courseService.deleteCourse(id);
+        return "redirect:/";
+    }
+
+    // Update course
+    @PostMapping("/courses/update/{id}")
+    public String updateCourse(
+            @PathVariable Long id,
+            @RequestParam String name,
+            @RequestParam String instructor) {
+
+        Course course = new Course(id, name, instructor);
+        courseService.updateCourse(id, course);
+
+        return "redirect:/";
     }
 }

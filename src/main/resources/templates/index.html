@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            color: #444;
+        }
+
+        form {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f8f8;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 95%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .view-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Library Management System</h1>
+
+    <h2>Welcome to the Library</h2>
+
+    <h2>Add Course</h2>
+
+    <form action="/courses/add" method="post">
+
+        <label for="id">Course ID</label>
+        <input
+                type="number"
+                id="id"
+                name="id"
+                placeholder="Course ID"
+                required>
+
+        <label for="name">Course Name</label>
+        <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Course Name"
+                required>
+
+        <label for="instructor">Instructor</label>
+        <input
+                type="text"
+                id="instructor"
+                name="instructor"
+                placeholder="Instructor Name"
+                required>
+
+        <button type="submit">Add Course</button>
+
+    </form>
+
+    <a class="view-button" href="/courses">
+        View Courses
+    </a>
+
+</div>
+
+</body>
+</html>
